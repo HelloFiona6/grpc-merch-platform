@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package db;
+
+message Empty {}
+
+message ById {
+  int32 id = 1;
+}
+
+message Product {
+  int32 id = 1;
+  string name = 2;
+  string category = 3;
+  double price = 4;
+  int32 stock = 5;
+}
+
+message ProductList {
+  repeated Product products = 1;
+}
+
+message User {
+  int32 id = 1;
+  string username = 2;
+  bool active = 3;
+}
+
+message RegisterRequest {
+  string username = 1;
+  string password_hash = 2; 
+}
+
+message UpdateUserRequest {
+  int32 id = 1;
+  string username = 2;
+  bool active = 3;
+}
+
+message Order {
+  int32 id = 1;
+  int32 user_id = 2;
+  int32 product_id = 3;
+  int32 quantity = 4;
+  double total_price = 5;
+  bool canceled = 6;
+}
+
+message NewOrder {
+  int32 user_id = 1;
+  int32 product_id = 2;
+  int32 quantity = 3;
+}
+
+service ProductService {
+  rpc ListProducts(Empty) returns (ProductList);
+  rpc GetProduct(ById) returns (Product);
+}
+
+service UserService {
+  rpc CreateUser(RegisterRequest) returns (User);
+  rpc GetUser(ById) returns (User);
+  rpc UpdateUser(UpdateUserRequest) returns (User);
+}
+
+service OrderService {
+  rpc CreateOrder(NewOrder) returns (Order);
+  rpc GetOrder(ById) returns (Order);
+  rpc CancelOrder(ById) returns (Order);
+}

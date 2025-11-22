@@ -38,3 +38,81 @@ We offer some utility bash commands in `Makefile`. Feel free to use them during 
 - `how-to-psql` shows how to connect to the database from within the `postgres` container.
 - `how-to-relife-db` shows how to clean up the database (and its binded volume) when stopping the with `docker compose`.
 - `how-to-stream-log` shows how to connect to the Kafka topic and fetch logs from it in a streaming fashion. Essentially, we pop out a [Kafka console consumer](https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-console-consumer-sh) inside the `kafka` container to connect to the topic.
+
+
+
+
+
+## Steps
+
+启动基础容器
+
+```cmd
+docker compose up -d postgres kafka zookeeper
+```
+
+确认数据库初始化成功
+
+在Ubuntu中输入
+
+```
+make how-to-psql
+```
+
+会输出一行指令，将指令的用户名和数据库部分替换成自己的，便能进入到shell中
+
+输入`\dt`，显示如下即成功
+
+```
+goodsstore=# \dt
+         List of relations
+ Schema |   Name   | Type  | Owner 
+--------+----------+-------+-------
+ public | orders   | table | test
+ public | products | table | test
+ public | users    | table | test
+(3 rows)
+```
+
+
+
+### Step 1
+
+#### 写好proto，它应该包含：
+
+* ProductService
+* UserService
+* OrderService
+* 所有 message（Product / User / Order / RegisterRequest / NewOrder 等）
+
+#### 生成grpc
+
+在`src/db_service/`下
+
+先创建虚拟环境
+
+```
+uv venv
+source .venv/bin/activate
+uv pip install -r requirements.txt
+```
+
+然后执行
+
+```
+mkdir -p grpc_generated
+python -m grpc_tools.protoc \
+  -I./proto \
+  --python_out=./grpc_generated \
+  --grpc_python_out=./grpc_generated \
+  ./proto/db.proto
+```
+
+生成了
+
+```
+src/db_service/grpc_generated/
+  db_pb2.py
+  db_pb2_grpc.py
+```
+

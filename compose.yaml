@@ -81,6 +81,35 @@ services:
       "
 
   ##### YOUR SERVICES GO BELOW THIS LINE #####
+  api_service:
+    build: ./src/api_service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db_service
+      - logging_service
+    environment:
+      DB_GRPC_HOST: db_service
+      LOG_GRPC_HOST: logging_service
+      JWT_SECRET: xxx
+
+  db_service:
+    build: ./src/db_service
+    depends_on:
+      - postgres
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+
+  logging_service:
+    build: ./src/logging_service
+    depends_on:
+      - kafka
+    environment:
+      KAFKA_BOOTSTRAP: kafka:9092
+
 
 volumes:
   pg_data: # A placeholder volume without any configuration
