@@ -1,7 +1,8 @@
 import grpc
 from concurrent import futures
 
-from grpc_generated import db_pb2, db_pb2_grpc
+import db_pb2, db_pb2_grpc
+# from grpc_generated import db_pb2, db_pb2_grpc
 
 from db_manager import DBManager
 
