@@ -60,6 +60,32 @@ def register(username: str, password: str):
     log_event(f"Registered user {username}")
     return {"id": user.id, "username": user.username}
 
+# @app.post("/users/{user_id}/deactivate")
+# def deactivate_user(user_id: int, current_user_id: int = Depends(get_current_user_id)):
+#     """
+#     让用户失效（active = False）
+#     """
+#     # 1. 取当前用户信息（必须存在）
+#     try:
+#         user = db_client.get_user(user_id)
+#     except grpc.RpcError:
+#         raise HTTPException(status_code=404, detail="User not found")
+
+#     # 2. 调用 UpdateUser 把 active 改为 false
+#     try:
+#         updated = db_client.update_user(user_id, user.username, False)
+#     except grpc.RpcError:
+#         raise HTTPException(status_code=500, detail="Failed to deactivate user")
+
+#     log_event(f"Deactivated user {user_id}")
+
+#     # 3. 返回
+#     return {
+#         "id": updated.id,
+#         "username": updated.username,
+#         "active": updated.active
+#     }
+
 
 @app.post("/users/login")
 def login(username: str, password: str):

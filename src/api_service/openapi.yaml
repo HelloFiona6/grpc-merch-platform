@@ -1,2 +1,226 @@
-# write sth here.
-# All api
+openapi: 3.1.0
+info:
+  title: Merch Store API
+  version: 0.1.0
+paths:
+  /:
+    get:
+      summary: Greeting
+      operationId: greeting__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /products:
+    get:
+      summary: List Products
+      operationId: list_products_products_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /users/register:
+    post:
+      summary: Register
+      operationId: register_users_register_post
+      parameters:
+      - name: username
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Username
+      - name: password
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Password
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /users/login:
+    post:
+      summary: Login
+      operationId: login_users_login_post
+      parameters:
+      - name: username
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Username
+      - name: password
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Password
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /products/{product_id}:
+    get:
+      summary: Get Product
+      operationId: get_product_products__product_id__get
+      parameters:
+      - name: product_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Product Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /orders:
+    post:
+      summary: Place Order
+      operationId: place_order_orders_post
+      security:
+      - OAuth2PasswordBearer: []
+      parameters:
+      - name: product_id
+        in: query
+        required: true
+        schema:
+          type: integer
+          title: Product Id
+      - name: quantity
+        in: query
+        required: true
+        schema:
+          type: integer
+          title: Quantity
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /orders/{order_id}/cancel:
+    post:
+      summary: Cancel Order
+      operationId: cancel_order_orders__order_id__cancel_post
+      security:
+      - OAuth2PasswordBearer: []
+      parameters:
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Order Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /orders/{order_id}:
+    get:
+      summary: Get Order
+      operationId: get_order_orders__order_id__get
+      security:
+      - OAuth2PasswordBearer: []
+      parameters:
+      - name: order_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Order Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    OAuth2PasswordBearer:
+      type: oauth2
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: users/login
