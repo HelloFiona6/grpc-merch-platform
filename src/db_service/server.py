@@ -42,17 +42,17 @@ class ProductService(db_pb2_grpc.ProductServiceServicer):
 class UserService(db_pb2_grpc.UserServiceServicer):
     def CreateUser(self, request, context):
         r = db.create_user(request.username, request.password_hash)
-        return db_pb2.User(id=r[0], username=r[1], active=r[2])
+        return db_pb2.User(id=r[0],username=r[1],active=r[2],password_hash=r[3])
 
     def GetUser(self, request, context):
         r = db.get_user(request.id)
         if r is None:
             context.abort(grpc.StatusCode.NOT_FOUND, "User not found")
-        return db_pb2.User(id=r[0], username=r[1], active=r[2])
+        return db_pb2.User(id=r[0],username=r[1],active=r[2],password_hash=r[3])
 
     def UpdateUser(self, request, context):
         r = db.update_user(request.id, request.username, request.active)
-        return db_pb2.User(id=r[0], username=r[1], active=r[2])
+        return db_pb2.User(id=r[0],username=r[1],active=r[2],password_hash=r[3])
 
 
 # -------------------------

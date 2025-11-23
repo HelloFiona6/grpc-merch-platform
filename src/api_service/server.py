@@ -71,9 +71,11 @@ class RegisterRequest(BaseModel):
     
 @app.post("/users/register")
 def register(req: RegisterRequest):
+    print("DEBUG password =", req.password)
+    print("TYPE =", type(req.password))
     hashed = hash_password(req.password)
     try:
-        user = db_client.create_user(req.username, hashed)
+        user = db_client. create_user(req.username, hashed)
     except:
         raise HTTPException(500, "Cannot create user")
     log_event(f"Registered user {req.username}")

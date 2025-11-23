@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x08\x64\x62.proto\x12\x02\x64\x62\"\x07\n\x05\x45mpty\"\x12\n\x04\x42yId\x12\n\n\x02id\x18\x01 \x01(\x05\"S\n\x07Product\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x10\n\x08\x63\x61tegory\x18\x03 \x01(\t\x12\r\n\x05price\x18\x04 \x01(\x01\x12\r\n\x05stock\x18\x05 \x01(\x05\",\n\x0bProductList\x12\x1d\n\x08products\x18\x01 \x03(\x0b\x32\x0b.db.Product\"4\n\x04User\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x10\n\x08username\x18\x02 \x01(\t\x12\x0e\n\x06\x61\x63tive\x18\x03 \x01(\x08\":\n\x0fRegisterRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x15\n\rpassword_hash\x18\x02 \x01(\t\"A\n\x11UpdateUserRequest\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x10\n\x08username\x18\x02 \x01(\t\x12\x0e\n\x06\x61\x63tive\x18\x03 \x01(\x08\"q\n\x05Order\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0f\n\x07user_id\x18\x02 \x01(\x05\x12\x12\n\nproduct_id\x18\x03 \x01(\x05\x12\x10\n\x08quantity\x18\x04 \x01(\x05\x12\x13\n\x0btotal_price\x18\x05 \x01(\x01\x12\x10\n\x08\x63\x61nceled\x18\x06 \x01(\x08\"A\n\x08NewOrder\x12\x0f\n\x07user_id\x18\x01 \x01(\x05\x12\x12\n\nproduct_id\x18\x02 \x01(\x05\x12\x10\n\x08quantity\x18\x03 \x01(\x05\x32\x61\n\x0eProductService\x12*\n\x0cListProducts\x12\t.db.Empty\x1a\x0f.db.ProductList\x12#\n\nGetProduct\x12\x08.db.ById\x1a\x0b.db.Product2\x88\x01\n\x0bUserService\x12+\n\nCreateUser\x12\x13.db.RegisterRequest\x1a\x08.db.User\x12\x1d\n\x07GetUser\x12\x08.db.ById\x1a\x08.db.User\x12-\n\nUpdateUser\x12\x15.db.UpdateUserRequest\x1a\x08.db.User2{\n\x0cOrderService\x12&\n\x0b\x43reateOrder\x12\x0c.db.NewOrder\x1a\t.db.Order\x12\x1f\n\x08GetOrder\x12\x08.db.ById\x1a\t.db.Order\x12\"\n\x0b\x43\x61ncelOrder\x12\x08.db.ById\x1a\t.db.Orderb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x08\x64\x62.proto\x12\x02\x64\x62\"\x07\n\x05\x45mpty\"\x12\n\x04\x42yId\x12\n\n\x02id\x18\x01 \x01(\x05\"S\n\x07Product\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x10\n\x08\x63\x61tegory\x18\x03 \x01(\t\x12\r\n\x05price\x18\x04 \x01(\x01\x12\r\n\x05stock\x18\x05 \x01(\x05\",\n\x0bProductList\x12\x1d\n\x08products\x18\x01 \x03(\x0b\x32\x0b.db.Product\"K\n\x04User\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x10\n\x08username\x18\x02 \x01(\t\x12\x0e\n\x06\x61\x63tive\x18\x03 \x01(\x08\x12\x15\n\rpassword_hash\x18\x04 \x01(\t\":\n\x0fRegisterRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x15\n\rpassword_hash\x18\x02 \x01(\t\"A\n\x11UpdateUserRequest\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x10\n\x08username\x18\x02 \x01(\t\x12\x0e\n\x06\x61\x63tive\x18\x03 \x01(\x08\"q\n\x05Order\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0f\n\x07user_id\x18\x02 \x01(\x05\x12\x12\n\nproduct_id\x18\x03 \x01(\x05\x12\x10\n\x08quantity\x18\x04 \x01(\x05\x12\x13\n\x0btotal_price\x18\x05 \x01(\x01\x12\x10\n\x08\x63\x61nceled\x18\x06 \x01(\x08\"A\n\x08NewOrder\x12\x0f\n\x07user_id\x18\x01 \x01(\x05\x12\x12\n\nproduct_id\x18\x02 \x01(\x05\x12\x10\n\x08quantity\x18\x03 \x01(\x05\x32\x61\n\x0eProductService\x12*\n\x0cListProducts\x12\t.db.Empty\x1a\x0f.db.ProductList\x12#\n\nGetProduct\x12\x08.db.ById\x1a\x0b.db.Product2\x88\x01\n\x0bUserService\x12+\n\nCreateUser\x12\x13.db.RegisterRequest\x1a\x08.db.User\x12\x1d\n\x07GetUser\x12\x08.db.ById\x1a\x08.db.User\x12-\n\nUpdateUser\x12\x15.db.UpdateUserRequest\x1a\x08.db.User2{\n\x0cOrderService\x12&\n\x0b\x43reateOrder\x12\x0c.db.NewOrder\x1a\t.db.Order\x12\x1f\n\x08GetOrder\x12\x08.db.ById\x1a\t.db.Order\x12\"\n\x0b\x43\x61ncelOrder\x12\x08.db.ById\x1a\t.db.Orderb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -40,19 +40,19 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_PRODUCTLIST']._serialized_start=130
   _globals['_PRODUCTLIST']._serialized_end=174
   _globals['_USER']._serialized_start=176
-  _globals['_USER']._serialized_end=228
-  _globals['_REGISTERREQUEST']._serialized_start=230
-  _globals['_REGISTERREQUEST']._serialized_end=288
-  _globals['_UPDATEUSERREQUEST']._serialized_start=290
-  _globals['_UPDATEUSERREQUEST']._serialized_end=355
-  _globals['_ORDER']._serialized_start=357
-  _globals['_ORDER']._serialized_end=470
-  _globals['_NEWORDER']._serialized_start=472
-  _globals['_NEWORDER']._serialized_end=537
-  _globals['_PRODUCTSERVICE']._serialized_start=539
-  _globals['_PRODUCTSERVICE']._serialized_end=636
-  _globals['_USERSERVICE']._serialized_start=639
-  _globals['_USERSERVICE']._serialized_end=775
-  _globals['_ORDERSERVICE']._serialized_start=777
-  _globals['_ORDERSERVICE']._serialized_end=900
+  _globals['_USER']._serialized_end=251
+  _globals['_REGISTERREQUEST']._serialized_start=253
+  _globals['_REGISTERREQUEST']._serialized_end=311
+  _globals['_UPDATEUSERREQUEST']._serialized_start=313
+  _globals['_UPDATEUSERREQUEST']._serialized_end=378
+  _globals['_ORDER']._serialized_start=380
+  _globals['_ORDER']._serialized_end=493
+  _globals['_NEWORDER']._serialized_start=495
+  _globals['_NEWORDER']._serialized_end=560
+  _globals['_PRODUCTSERVICE']._serialized_start=562
+  _globals['_PRODUCTSERVICE']._serialized_end=659
+  _globals['_USERSERVICE']._serialized_start=662
+  _globals['_USERSERVICE']._serialized_end=798
+  _globals['_ORDERSERVICE']._serialized_start=800
+  _globals['_ORDERSERVICE']._serialized_end=923
 # @@protoc_insertion_point(module_scope)
