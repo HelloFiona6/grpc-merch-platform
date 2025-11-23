@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package logging;
+
+// 一条日志消息
+message LogMessage {
+  string service_name = 1;  // 哪个服务发的，比如 "api_service"
+  string level        = 2;  // 日志级别，比如 "INFO", "ERROR"
+  string message      = 3;  // 具体内容
+  string timestamp    = 4;  // 可选：ISO 8601 或简单字符串
+}
+
+// 收到日志后的汇总状态
+message PushLogStatus {
+  bool success = 1;
+  int32 count  = 2;         // 收到了多少条
+}
+
+// Logging Service 定义
+service LoggingService {
+  // client-side streaming：客户端发送一串 LogMessage，服务端处理完返回一个 PushLogStatus
+  rpc PushLog(stream LogMessage) returns (PushLogStatus);
+}

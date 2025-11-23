@@ -15,6 +15,12 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data # default PGDATA location: /var/lib/postgresql/data
       - ./db-init:/docker-entrypoint-initdb.d # init run all scripts by default in: /docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
 
   # kafka message queue with zookeeper config management
   zookeeper:
@@ -82,9 +88,9 @@ services:
 
   ##### YOUR SERVICES GO BELOW THIS LINE #####
   api_service:
-    build: ./src/api_service
+    build: ./src
     ports:
-      - "8080:8080"
+      - "18080:8080"
     depends_on:
       - db_service
       - logging_service
@@ -95,8 +101,11 @@ services:
 
   db_service:
     build: ./src/db_service
+    # depends_on:
+    #   - postgres
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     environment:
       POSTGRES_HOST: postgres
       POSTGRES_USER: ${POSTGRES_USER}
@@ -105,10 +114,13 @@ services:
 
   logging_service:
     build: ./src/logging_service
+    container_name: logging_service
     depends_on:
       - kafka
     environment:
-      KAFKA_BOOTSTRAP: kafka:9092
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_LOG_TOPIC: log-channel
+      LOGGING_SERVICE_PORT: "50052"
 
 
 volumes:

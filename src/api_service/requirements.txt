@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+pyjwt
+passlib[bcrypt]
+grpcio
+grpcio-tools
+protobuf
